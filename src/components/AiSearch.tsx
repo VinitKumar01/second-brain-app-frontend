@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { LegacyRef, useRef, useState } from "react";
 import { Button } from "./Button";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -30,7 +30,7 @@ export function AiSearch() {
     }
     return <>
     <div className="flex justify-end">
-    <input ref={aiSearchRef} className="w-screen ml-72 h-12 border-dashed border-2 border-white rounded-md bg-gray-100" placeholder="Search using AI"/>
+    <input ref={aiSearchRef as LegacyRef<HTMLInputElement> | undefined} className="w-screen ml-72 h-12 border-dashed border-2 border-white rounded-md bg-gray-100" placeholder="Search using AI"/>
     <Button varinat="primary" text="Search" onClick={search}/>
     </div>
     {aiData && aiData != 'undefined' ? <div className="text-white min-h-12 content-center ml-72">{aiData}</div>: <></>}
