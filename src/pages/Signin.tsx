@@ -20,7 +20,6 @@ export function Signin() {
             localStorage.setItem("token", jwt);
             navigate("/dashboard");
         } catch (error) {
-            console.log((error as {response: {data: {message: string}}}).response.data.message);
             setErrorMessage((error as {response: {data: {message: string}}}).response.data.message)
         }
     }

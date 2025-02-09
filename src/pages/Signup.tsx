@@ -40,7 +40,6 @@ export function Signup() {
             await axios.post(`${BACKEND_URL}/api/v1/signup`, {username, email, password});
             navigate("/signin");
         } catch (error) {
-            console.log((error as ZodError).response.data.errors);
             setEmailError((error as ZodError).response.data.errors.email?._errors )
             setUsernameError((error as ZodError).response.data.errors.username?._errors)
             setPasswordError((error as ZodError).response.data.errors.password?._errors)
