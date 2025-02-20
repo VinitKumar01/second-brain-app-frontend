@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { motion, AnimatePresence } from "motion/react";
 
 interface PropsType {
     open: boolean;
@@ -39,9 +40,15 @@ export function CreateContentModal({open, onClose}:PropsType) {
         onClose();
     }
 
-    return(<>
-    {open && <div className="w-screen h-screen bg-slate-500 fixed top-0 lef-0 bg-opacity-60 flex justify-center">
-        <div className="flex flex-col justify-center">
+    return(<AnimatePresence>
+    {open && <div className="w-screen h-screen bg-slate-500 fixed top-0 lef-0 bg-opacity-60 flex justify-center" onClick={onClose}>
+        <motion.div 
+            className="flex flex-col justify-center"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            onClick={(e) => e.stopPropagation()}>
             <span className="bg-white p-4 rounded">
                 <div className="flex justify-end">
                     <CrossIcon onClick={onClose}/>
@@ -65,8 +72,7 @@ export function CreateContentModal({open, onClose}:PropsType) {
                     <Button varinat="primary" loading={isLoading} text="Submit" onClick={addContent}/>
                 </div>
             </span>
-        </div>
-
+        </motion.div>
     </div>}
-    </>)
+    </AnimatePresence>)
 }

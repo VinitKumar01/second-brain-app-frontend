@@ -10,6 +10,7 @@ import axios from "axios"
 import { BACKEND_URL } from "../config"
 import { useParams } from "react-router-dom"
 import { AiSearch } from "../components/AiSearch"
+import { motion, AnimatePresence } from "motion/react"
 
 type Params = {
   hash: string;
@@ -61,9 +62,19 @@ type Params = {
       }}></Button>
     </div>
     <div className="flex gap-4 flex-wrap">
-      {contents.map(({title, type, link, _id}, index)=> {
-        return <Card key={index} title={title} link={link} type={type} _id={_id}/>
-      })}
+    <AnimatePresence>
+        {contents.map(({ title, type, link, _id }, _) => (
+          <motion.div
+            key={_id} // Use a unique identifier instead of index
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Card title={title} link={link} type={type} _id={_id} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   </div>
   </>
